@@ -1,19 +1,13 @@
 import { useSpring, animated } from 'react-spring';
-
+import Fade from './Animations/Fade';
 const Header = () => {
-    const props = useSpring({
-        from: {
-            opacity: 0
-        },
-        to: {
-            opacity: 1
-        },
-        config: { duration: 1000 }
-    });
+    
     return (  
-        <animated.div style={props} className="header">
-            <h1>HANGMAN</h1>
-        </animated.div>
+        <div className="header">
+            <Fade direction="in">
+                <h1 id="header-text">HANGMAN</h1>
+            </Fade>
+        </div>
     );
 }
  

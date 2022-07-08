@@ -1,12 +1,79 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#gallows {
+  height: 70vh;
+  margin: 0px;
+}
 .App {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .header {
   display: flex;
   justify-content: center;
+  margin-top: 5vh;
 }
 .display {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.num-input {
+  padding: 0px;
+  margin-left: 10px;
+  width: 4vw;
+  border: 3px solid black;
+}
+.bold-text {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0px;
+}
+.submit-button {
+  margin-top: 15px;
+  border: 3px solid black;
+  padding: 5px;
+  background-color: rgb(242, 242, 242);
+}
+.submit-button:hover {
+  cursor: pointer;
+}
+#header-text {
+  font-size: 45px;
+  margin: 0px;  
+}
+#length-label {
+  align-self: flex-start;
+  margin: 0px;
+  padding-top: 1px;
+}
+.align-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+#input {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0px;
+  align-self: flex-end;
+}
+#input:focus{
+  outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
 }
