@@ -1,7 +1,7 @@
 import { useSpring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
 
-const Shake = ({ scale = 1.2, children }) => {
+const Expand = ({ scale, children }) => {
     const [hover, setHover] = useState(false);
 
     const style = useSpring({
@@ -17,18 +17,16 @@ const Shake = ({ scale = 1.2, children }) => {
 
     const mouseEnter = () => {
         setHover(true);
-        console.log(hover);
     };
     const mouseLeave = () => {
         setHover(false);
-        console.log(hover);
     };
 
     return (
-        <animated.span onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} style={style}>
+        <animated.div onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} style={style}>
             {children}
-        </animated.span>
+        </animated.div>
       );
 }
  
-export default Shake;
+export default Expand;

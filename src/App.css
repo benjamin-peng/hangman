@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 #gallows {
-  height: 70vh;
+  height: 67vh;
   margin: 0px;
 }
 .App {
@@ -28,19 +28,53 @@
   width: 4vw;
   border: 3px solid black;
 }
+.word-input {
+  border: 3px solid black;
+  width: 55px;
+  height: 35px;
+  margin: 5px;
+}
 .bold-text {
   font-weight: bold;
   font-size: 20px;
   margin: 0px;
 }
 .submit-button {
-  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  width: 12vw;
+  margin-top: 2vh;
   border: 3px solid black;
   padding: 5px;
   background-color: rgb(242, 242, 242);
 }
 .submit-button:hover {
   cursor: pointer;
+}
+.align-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.align-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.invalid-text {
+  text-align: center;
+}
+.submit-boxes {
+  display: flex;
+  flex-direction: row;
+}
+#invalid-text {
+  margin-top: 2vh;
+  font-weight: bold;
+  color: rgb(217, 104, 104)
 }
 #header-text {
   font-size: 45px;
@@ -50,10 +84,6 @@
   align-self: flex-start;
   margin: 0px;
   padding-top: 1px;
-}
-.align-horizontal {
-  display: flex;
-  flex-direction: row;
 }
 #input {
   width: 100%;
