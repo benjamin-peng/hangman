@@ -29,8 +29,8 @@
   border: 3px solid black;
 }
 .word-input {
-  border: 3px solid black;
-  width: 55px;
+  border-bottom: 3px solid black;
+  width: 35px;
   height: 35px;
   margin: 5px;
 }
@@ -70,6 +70,12 @@
 .submit-boxes {
   display: flex;
   flex-direction: row;
+}
+.guess {
+  display: flex;
+}
+input[type="text"][disabled] {
+  background-color: white;
 }
 #invalid-text {
   margin-top: 2vh;
