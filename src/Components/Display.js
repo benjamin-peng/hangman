@@ -1,3 +1,4 @@
+import WordList from '../WordData/wordlist.txt';
 import { useState, useEffect, Fragment } from 'react';
 import { ReactComponent as Gallows } from '../Images/gallows.svg';
 import NumInput from './NumInput';
@@ -17,6 +18,16 @@ const Display = () => {
     const [input, setInput] = useState([]);
     const [tempInput, setTemp] = useState([]); //log every change in WordInputs, only finalize in input at end of round
     const [guess, setGuess] = useState('A');
+    const [madeGuesses, setMadeGuesses] = useState(['A']);
+    const [trigger, setTrigger] = useState(0);
+
+    const [wordList, setWordList] = useState([]); //list of all english words, uppercase
+    //get list of words
+    fetch(WordList)
+    .then(r => r.text())
+    .then(text => {
+        setWordList(text.split('\r\n'));
+    });
 
     const startGame = () => {
         if (!valid) return;
@@ -27,9 +38,73 @@ const Display = () => {
 
     //executes at finish of each guessing round
     const finishRound = () => {
-        setInput(tempInput); //locks in tempInput changes
 
+        setInput(tempInput); //locks in tempInput changes
+        setTrigger(trigger + 1);
+        //makeGuess();
     };
+
+    useEffect(() => {
+        if (wordList.length > 0) {
+            console.log('asdfasdf')
+            var possibleWords = [];
+            for (var i = 0; i < wordList.length; i++) {
+                if (wordList[i].length != wordLength) continue;
+                var candidate = true;
+                for (var j = 0; j < input.length; j++) {
+                    if (input[j] == null) continue; //skip if input char isn't filled
+                    if (input[j] != wordList[i].charAt(j)) candidate = false;
+                }
+                if (candidate) possibleWords.push(wordList[i]);
+            }
+            var counts = new Map();
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for (var i = 0; i < possibleWords.length; i++) {
+                console.log(possibleWords[i]);
+                for (var j = 0; j < 26; j++) {
+                    const letter = alphabet.charAt(j);
+                    if (madeGuesses.includes(letter)) continue;
+                    if (!possibleWords[i].includes(letter)) {
+                        if (!counts.has(letter)) counts.set(letter, 0);
+                        counts.set(letter, counts.get(letter) + 1);
+                    }
+                }
+                for (var j = 0; j < 26; j++) {
+                    const letter = alphabet.charAt(j);
+                    if (madeGuesses.includes(letter)) continue;
+                    if (!counts.has(letter)) {
+                        counts.set(letter, 0);
+                    }
+                }
+            }
+            /*
+            for (var i = 0; i < 26; i++) {
+                console.log(possibleWords[i]);
+                const letter = alphabet.charAt(i);
+                if (madeGuesses.includes(letter)) continue;
+                for (var j = 0; j < possibleWords[i].length; j++) {
+                    const letter = possibleWords[i].charAt(j);
+                    //input.includes(letter) || 
+                    if (madeGuesses.includes(letter)) continue;
+                    counts.set(letter, 0);
+                    if (!possibleWords[i].includes(letter)) {
+                        //if (!counts.has(letter)) counts.set(letter, 0);
+                        counts.set(letter, counts.get(letter) + 1);
+                    }
+                }
+
+            }
+            */
+            counts = new Map([...counts.entries()].sort((a, b) => a[1] - b[1]));
+            console.log(counts);
+            const firstKey = counts.keys().next().value;
+            console.log(firstKey);
+            setGuess(firstKey);
+            setMadeGuesses(madeGuesses.concat(firstKey));
+            console.log(madeGuesses);
+        }
+       
+    }, [trigger])
 
     useEffect(() => { //remove later, logs input
         console.log(input);
