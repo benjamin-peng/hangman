@@ -32,7 +32,7 @@ const WordInput = ({ letter, index, setTemp, temp, input }) => {
     return (
         <Expand scale={1.2}>
             <div className="word-input">
-                <input type="text" maxLength={1} id="input" 
+                <input type="text" maxLength={1} className="input" 
                 onChange={change} value={val} disabled={disabled}>
                 </input>
             </div>

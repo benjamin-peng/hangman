@@ -14,11 +14,11 @@ const Display = () => {
     
     const [valid, setValid] = useState(true);
     const [wordLength, setWordLength] = useState(10);
-    const [inGame, setInGame] = useState(false);
+    const [inGame, setInGame] = useState(0);
     const [input, setInput] = useState([]);
     const [tempInput, setTemp] = useState([]); //log every change in WordInputs, only finalize in input at end of round
-    const [guess, setGuess] = useState('A');
-    const [madeGuesses, setMadeGuesses] = useState(['A']);
+    const [guess, setGuess] = useState('E');
+    const [madeGuesses, setMadeGuesses] = useState(['E']);
     const [trigger, setTrigger] = useState(0);
 
     const [wordList, setWordList] = useState([]); //list of all english words, uppercase
@@ -31,22 +31,22 @@ const Display = () => {
 
     const startGame = () => {
         if (!valid) return;
-        setInGame(true);
+        setInGame(1);
         setInput(new Array(wordLength).fill(null));
         setTemp(new Array(wordLength).fill(null));
     };
 
     //executes at finish of each guessing round
     const finishRound = () => {
-
         setInput(tempInput); //locks in tempInput changes
         setTrigger(trigger + 1);
-        //makeGuess();
     };
 
     useEffect(() => {
-        if (wordList.length > 0) {
-            console.log('asdfasdf')
+        if (!input.includes(null) && trigger != 0) {
+            setInGame(2);
+        }
+        else if (wordList.length > 0) {
             var possibleWords = [];
             for (var i = 0; i < wordList.length; i++) {
                 if (wordList[i].length != wordLength) continue;
@@ -60,7 +60,6 @@ const Display = () => {
             var counts = new Map();
             const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             for (var i = 0; i < possibleWords.length; i++) {
-                console.log(possibleWords[i]);
                 for (var j = 0; j < 26; j++) {
                     const letter = alphabet.charAt(j);
                     if (madeGuesses.includes(letter)) continue;
@@ -77,38 +76,15 @@ const Display = () => {
                     }
                 }
             }
-            /*
-            for (var i = 0; i < 26; i++) {
-                console.log(possibleWords[i]);
-                const letter = alphabet.charAt(i);
-                if (madeGuesses.includes(letter)) continue;
-                for (var j = 0; j < possibleWords[i].length; j++) {
-                    const letter = possibleWords[i].charAt(j);
-                    //input.includes(letter) || 
-                    if (madeGuesses.includes(letter)) continue;
-                    counts.set(letter, 0);
-                    if (!possibleWords[i].includes(letter)) {
-                        //if (!counts.has(letter)) counts.set(letter, 0);
-                        counts.set(letter, counts.get(letter) + 1);
-                    }
-                }
-
-            }
-            */
             counts = new Map([...counts.entries()].sort((a, b) => a[1] - b[1]));
             console.log(counts);
             const firstKey = counts.keys().next().value;
             console.log(firstKey);
             setGuess(firstKey);
             setMadeGuesses(madeGuesses.concat(firstKey));
-            console.log(madeGuesses);
         }
        
-    }, [trigger])
-
-    useEffect(() => { //remove later, logs input
-        console.log(input);
-    }, [input]);
+    }, [trigger]);
 
     //bottom of display before game start
     const pregame = () => {
@@ -133,13 +109,13 @@ const Display = () => {
     const ingame = () => {
         return (
             <div className="align-vertical">
-                 <Slide show={inGame} wait={500} trigger="both">
+                <Slide show={inGame==1} wait={500} trigger="mount">
                     <Guess letter={guess}></Guess>
-                 </Slide>
+                </Slide>
                 <div className="submit-boxes">
                     {Array(wordLength).fill(0).map((_, i) => {  
                         return (
-                            <Slide show={inGame} wait={500 + (i * 30)} trigger="both" key={i}>
+                            <Slide show={inGame==1} wait={500 + (i * 30)} trigger="mount" key={i}>
                                 <WordInput letter={guess} key={i} 
                                 index={i} setTemp={setTemp} input={input}
                                 temp={tempInput}></WordInput>
@@ -147,22 +123,34 @@ const Display = () => {
                         )
                     })}
                 </div>
-                <Slide show={inGame} wait={500 + (wordLength * 30) + 30}>
+                <Slide show={inGame==1} wait={500 + (wordLength * 30) + 30}>
                     <SubmitButton submit={finishRound}></SubmitButton>
                 </Slide>
             </div>
-            
         )
     }
+
+    const finishgame = () => {
+        return (
+            <Slide show={inGame==2} wait={500} trigger="mount">
+                <p className="bold-text">I WIN!</p>
+            </Slide>
+        );
+    };
 
     return (  
         <Fade wait={1000} direction="in">
             <div className="display">
                     <Gallows id="gallows"></Gallows>
-                    <Slide show={!inGame} trigger="unmount" className="display">
+                    <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
                         {pregame()}
                     </Slide>
-                    {inGame && ingame()}                                        
+                    <Slide show={inGame==1} delay={1000} trigger="unmount">
+                        {ingame()}                                        
+                    </Slide>
+                    <Slide show={inGame==2} delay={1000} trigger="unmount">
+                        {finishgame()}                                        
+                    </Slide>
             </div>
         </Fade>
 

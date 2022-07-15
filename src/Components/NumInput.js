@@ -9,7 +9,7 @@ const NumInput = ({setWordLength, setValid }) => {
             <p className="bold-text" id="length-label">ENTER WORD LENGTH: </p>
             <Expand scale="1.1">
                 <div className="num-input">
-                    <input type="number" id="input" 
+                    <input type="number" className="input" 
                     onChange={(e) => {
                         if (e.target.value <= 12 && e.target.value > 0) {
                             setValid(true);
