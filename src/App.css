@@ -88,7 +88,10 @@ input[type="text"][disabled] {
   padding: 0px;
   align-self: flex-end;
 }
-
+.complete-gallows {
+  border: 1px solid black;
+  position: relative;
+}
 #guessed-letter {
   width: 1rem;
 }

@@ -6,6 +6,7 @@ import WordInput from './WordInput';
 import SubmitButton from './SubmitButton';
 import InvalidText from './InvalidText';
 import Guess from './Guess';
+import BodyPart from './BodyPart';
 import Expand from './Animations/Expand';
 import Fade from './Animations/Fade';
 import Slide from './Animations/Slide';
@@ -141,16 +142,19 @@ const Display = () => {
     return (  
         <Fade wait={1000} direction="in">
             <div className="display">
+                <div className="complete-gallows">
+                    <BodyPart></BodyPart>
                     <Gallows id="gallows"></Gallows>
-                    <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
-                        {pregame()}
-                    </Slide>
-                    <Slide show={inGame==1} delay={1000} trigger="unmount">
-                        {ingame()}                                        
-                    </Slide>
-                    <Slide show={inGame==2} delay={1000} trigger="unmount">
-                        {finishgame()}                                        
-                    </Slide>
+                </div>
+                <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
+                    {pregame()}
+                </Slide>
+                <Slide show={inGame==1} delay={1000} trigger="unmount">
+                    {ingame()}                                        
+                </Slide>
+                <Slide show={inGame==2} delay={1000} trigger="unmount">
+                    {finishgame()}                                        
+                </Slide>
             </div>
         </Fade>
 
