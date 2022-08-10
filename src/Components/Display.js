@@ -21,6 +21,7 @@ const Display = () => {
     const [guess, setGuess] = useState('E');
     const [madeGuesses, setMadeGuesses] = useState(['E']);
     const [trigger, setTrigger] = useState(0);
+    const [frame, setFrame] = useState(0);
 
     const [wordList, setWordList] = useState([]); //list of all english words, uppercase
     //get list of words
@@ -40,6 +41,14 @@ const Display = () => {
     //executes at finish of each guessing round
     const finishRound = () => {
         setInput(tempInput); //locks in tempInput changes
+        let noChange = true;
+        for (let i = 0; i < tempInput.length; i++) {
+            if (tempInput[i] !== input[i]) {
+                noChange = false;
+                break;
+            }
+        }
+        if (noChange) setFrame(frame + 1);
         setTrigger(trigger + 1);
     };
 
@@ -143,7 +152,7 @@ const Display = () => {
         <Fade wait={1000} direction="in">
             <div className="display">
                 <div className="complete-gallows">
-                    <BodyPart></BodyPart>
+                    <BodyPart frame={frame}></BodyPart>
                     <Gallows id="gallows"></Gallows>
                 </div>
                 <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
