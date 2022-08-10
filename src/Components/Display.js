@@ -53,7 +53,10 @@ const Display = () => {
     };
 
     useEffect(() => {
-        if (!input.includes(null) && trigger != 0) {
+        if (frame >= 6) {
+            setInGame(3);
+        }
+        else if (!input.includes(null) && trigger != 0) {
             setInGame(2);
         }
         else if (wordList.length > 0) {
@@ -96,9 +99,32 @@ const Display = () => {
        
     }, [trigger]);
 
+    //resets game completely
+    const resetgame = () => {
+        setWordLength(10);
+        setFrame(0);
+        setGuess('E');
+        setMadeGuesses(['E']);
+        setInGame(0);
+    }
+
     //bottom of display before game start
-    const pregame = () => {
-        return (
+    const pregame = (reset) => {
+        if (reset) return (
+            <Slide show={reset} wait={500}>
+                <NumInput setWordLength={setWordLength} setValid={setValid}>
+                </NumInput>
+                
+                <Expand scale="1.1">
+                    <SubmitButton submit={startGame}></SubmitButton>
+                </Expand>
+
+                <Slide trigger="both" show={!valid}>
+                    <InvalidText></InvalidText>
+                </Slide>   
+            </Slide>
+        );
+        else return (
             <>
             <NumInput setWordLength={setWordLength} setValid={setValid}>
             </NumInput>
@@ -140,11 +166,28 @@ const Display = () => {
         )
     }
 
-    const finishgame = () => {
-        return (
+    const finishgame = (win) => {
+        if (win) return (
             <Slide show={inGame==2} wait={500} trigger="mount">
-                <p className="bold-text">I WIN!</p>
+                <p className="finish-text">I WIN!</p>
+                <Expand scale="1.1">
+                    <SubmitButton submit={resetgame} text='START AGAIN'></SubmitButton>
+                </Expand>
             </Slide>
+        );
+        else return (
+            <>
+             <Slide show={inGame==3} wait={500} trigger="mount">
+                <p className="finish-text">I LOSE!</p>
+            </Slide>
+            <Slide show={inGame==3} wait={1000} trigger="mount">
+                <Expand scale="1.1">
+                    <SubmitButton submit={resetgame} text='START AGAIN'></SubmitButton>
+                </Expand>
+            </Slide>
+            </>
+           
+            
         );
     };
 
@@ -156,13 +199,16 @@ const Display = () => {
                     <Gallows id="gallows"></Gallows>
                 </div>
                 <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
-                    {pregame()}
+                    {pregame(trigger > 0)}
                 </Slide>
                 <Slide show={inGame==1} delay={1000} trigger="unmount">
                     {ingame()}                                        
                 </Slide>
-                <Slide show={inGame==2} delay={1000} trigger="unmount">
-                    {finishgame()}                                        
+                <Slide show={inGame == 2} delay={1000} trigger="unmount">
+                    {finishgame(true)}                                        
+                </Slide>
+                <Slide show={inGame == 3} delay={1000} trigger="unmount">
+                    {finishgame(false)}                                        
                 </Slide>
             </div>
         </Fade>

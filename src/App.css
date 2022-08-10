@@ -25,7 +25,7 @@
 .num-input {
   padding: 0px;
   margin-left: 10px;
-  width: 4vw;
+  width: 40px;
   border: 3px solid black;
 }
 .word-input {
@@ -39,13 +39,20 @@
   font-size: 20px;
   margin: 0px;
 }
+.finish-text {
+  font-weight: bold;
+  font-size: 26px;
+  margin: 0;
+  text-align: center;
+}
 .submit-button {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  width: 12vw;
+  width: auto;
   margin-top: 2vh;
   border: 3px solid black;
-  padding: 5px;
+  padding: 5px 10px;
   background-color: rgb(242, 242, 242);
 }
 .submit-button:hover {
@@ -63,6 +70,9 @@
 .button-wrapper {
   display: flex;
   justify-content: center;
+}
+.button-text {
+  text-align: center;
 }
 .invalid-text {
   text-align: center;
@@ -89,7 +99,6 @@ input[type="text"][disabled] {
   align-self: flex-end;
 }
 .complete-gallows {
-  border: 1px solid black;
   position: relative;
 }
 #guessed-letter {

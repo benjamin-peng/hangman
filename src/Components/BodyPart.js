@@ -24,7 +24,7 @@ const Styles = styled.div`
         position: absolute;
         height: 40px;
         right: 22.2%;
-        top: 35%;
+        top: 38%;
         transform: rotate(-45deg);
     }
     .right-arm {
@@ -32,7 +32,7 @@ const Styles = styled.div`
         position: absolute;
         height: 40px;
         right: 15.2%;
-        top: 35%;
+        top: 38%;
         transform: rotate(45deg);
     }
     .left-leg {
