@@ -1,6 +1,6 @@
 import WordList from '../WordData/wordlist.txt';
 import { useState, useEffect, Fragment } from 'react';
-import { ReactComponent as Gallows } from '../Images/gallows.svg';
+import Gallows from '../Images/gallows.svg';
 import NumInput from './NumInput';
 import WordInput from './WordInput';
 import SubmitButton from './SubmitButton';
@@ -196,7 +196,7 @@ const Display = () => {
             <div className="display">
                 <div className="complete-gallows">
                     <BodyPart frame={frame}></BodyPart>
-                    <Gallows id="gallows"></Gallows>
+                    <img src={Gallows} alt="gallows" id="gallows"/>
                 </div>
                 <Slide show={inGame==0} delay={1000} trigger="unmount" className="display">
                     {pregame(trigger > 0)}

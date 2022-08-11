@@ -9,21 +9,21 @@ const Styles = styled.div`
         width: 50px;
         border: 4px solid black;
         position: absolute;
-        top: 23%;
-        right: 13%;
+        top: 23.3%;
+        right: 16.3%;
     }
     .torso {
         border: 2px solid black;
         position: absolute;
         height: 130px;
-        right: 18.8%;
-        top: 33%;
+        right: 21.8%;
+        top: 34%;
     }
     .left-arm {
         border: 2px solid black;
         position: absolute;
         height: 40px;
-        right: 22.2%;
+        right: 25.2%;
         top: 38%;
         transform: rotate(-45deg);
     }
@@ -31,7 +31,7 @@ const Styles = styled.div`
         border: 2px solid black;
         position: absolute;
         height: 40px;
-        right: 15.2%;
+        right: 18.2%;
         top: 38%;
         transform: rotate(45deg);
     }
@@ -39,16 +39,16 @@ const Styles = styled.div`
         border: 2px solid black;
         position: absolute;
         height: 40px;
-        right: 22.1%;
-        top: 58.7%;
+        right: 25.1%;
+        top: 61.7%;
         transform: rotate(45deg);
     }
     .right-leg {
         border: 2px solid black;
         position: absolute;
         height: 40px;
-        right: 15.2%;
-        top: 58.7%;
+        right: 18.2%;
+        top: 61.7%;
         transform: rotate(135deg);
     }
 `;

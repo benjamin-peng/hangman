@@ -2,12 +2,13 @@ import { useTransition, animated } from 'react-spring';
 
 const Slide = ({show, wait = 0, trigger = 'both', children}) => {
     const transitions = useTransition(show, {
-      from: { y: trigger == 'mount' || trigger == 'both' ? 200 : 0 },
+      from: { y: trigger == 'mount' || trigger == 'both' ? 400 : 0 },
       enter: { y: 0 },
-      leave: { y: trigger == 'unmount' || trigger == 'both' ? 200 : 0 },
+      leave: { y: trigger == 'unmount' || trigger == 'both' ? 400 : 0 },
       delay: wait,
       config: {
-          tension: 300
+          tension: 200,
+          friction: 20
       }
     });
 
